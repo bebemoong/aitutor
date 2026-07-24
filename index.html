@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Tutor Demo</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Pretendard, sans-serif;
+            background: #f7f8fb;
+            color: #222;
+        }
+
+        .demo {
+
+            max-width: 1200px;
+            margin: 120px auto;
+            padding: 0 20px;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 70px;
+        }
+
+        .text {
+
+            flex: 1;
+        }
+
+        .tag {
+
+            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: #eef4ff;
+            color: #2563eb;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+
+            font-size: 48px;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .desc {
+
+            font-size: 18px;
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 35px;
+        }
+
+        .list {
+
+            list-style: none;
+        }
+
+        .list li {
+
+            margin-bottom: 18px;
+            font-size: 17px;
+        }
+
+        .btn {
+
+            display: inline-block;
+            margin-top: 35px;
+
+            padding: 15px 30px;
+
+            background: #2563eb;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: .25s;
+        }
+
+        .btn:hover {
+
+            background: #1d4ed8;
+        }
+
+        .video {
+            width: 550px;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 20px;
+        }
+
+        .video video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            pointer-events: none;
+            user-select: none;
+
+            /* 오른쪽 아래를 기준으로 확대 */
+            transform-origin: right bottom;
+
+            animation: xxzoomDemo 9s ease-in-out infinite;
+        }
+
+        @keyframes zoomDemo {
+
+            /* 기본 */
+            0%,
+            10% {
+                transform: scale(1.35) translate(2px, 25px);
+            }
+
+            /* 첫 번째 확대 */
+            18% {
+                transform: scale(1.65) translate(2px, 25px);
+            }
+
+            /* 확대 유지 */
+            38% {
+                transform: scale(1.65) translate(2px, 25px);
+            }
+
+            /* 첫 번째 축소 */
+            45% {
+                transform: scale(1.35) translate(2px, 25px);
+            }
+
+            /* 기본 유지 */
+            60% {
+                transform: scale(1.35) translate(2px, 25px);
+            }
+
+            /* 두 번째 확대 */
+            68% {
+                transform: scale(1.65) translate(2px, 25px);
+            }
+
+            /* 확대 유지 */
+            88% {
+                transform: scale(1.65) translate(2px, 25px);
+            }
+
+            /* 마지막 축소 */
+            100% {
+                transform: scale(1.35) translate(2px, 25px);
+            }
+
+        }
+
+        @media(max-width:900px) {
+
+            .demo {
+
+                flex-direction: column;
+            }
+
+            .text {
+
+                text-align: center;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <section class="demo">
+
+        <div class="text">
+
+            <span class="tag">Tools 1</span>
+
+            <h2>
+                학습출석체크
+            </h2>
+
+            <p class="desc">
+                학습 진행 상황을 자동으로 기록하고 관리할 수 있습니다.
+            </p>
+
+        </div>
+
+        <div class="video">
+
+            <video autoplay muted loop playsinline>
+
+                <source src="tool01_01.mp4" type="video/mp4">
+
+        </div>
+
+    </section>
+
+        <section class="demo">
+
+        <div class="text">
+
+            <span class="tag">Tools 2</span>
+
+            <h2>
+                학습출석체크
+            </h2>
+
+            <p class="desc">
+                학습 진행 상황을 자동으로 기록하고 관리할 수 있습니다.
+            </p>
+
+        </div>
+
+        <div class="video">
+
+            <video autoplay muted loop playsinline>
+
+                <source src="tool01_02.mp4" type="video/mp4">
+
+        </div>
+
+    </section>
+
+        <section class="demo">
+
+        <div class="text">
+
+            <span class="tag">Tools 3</span>
+
+            <h2>
+                학습출석체크
+            </h2>
+
+            <p class="desc">
+                학습 진행 상황을 자동으로 기록하고 관리할 수 있습니다.
+            </p>
+
+        </div>
+
+        <div class="video">
+
+            <video autoplay muted loop playsinline>
+
+                <source src="tool01_03.mp4" type="video/mp4">
+
+        </div>
+
+    </section>
+
+        <section class="demo">
+
+        <div class="text">
+
+            <span class="tag">Tools 4</span>
+
+            <h2>
+                학습출석체크
+            </h2>
+
+            <p class="desc">
+                학습 진행 상황을 자동으로 기록하고 관리할 수 있습니다.
+            </p>
+
+        </div>
+
+        <div class="video">
+
+            <video autoplay muted loop playsinline>
+
+                <source src="tool01_04.mp4" type="video/mp4">
+
+        </div>
+
+    </section>
+
+</body>
+
+</html>
