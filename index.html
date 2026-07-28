@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>AI Tutor Demo</title>
+    <title>영상뷰</title>
 
     <style>
         * {
@@ -20,8 +19,176 @@
             color: #222;
         }
 
-        .demo {
 
+        .test-wrap {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 0 20px;
+        }
+
+        .test-title {
+            margin-bottom: 30px;
+        }
+
+        .test-title .tag {
+            margin-bottom: 14px;
+        }
+
+        .test-title h2 {
+            font-size: 38px;
+            line-height: 1.25;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .test-title p {
+            font-size: 17px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+
+
+        .vertical-demo {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 70px;
+            margin-bottom: 120px;
+            padding: 0 30px;
+        }
+
+        .vertical-video {
+            width: 450px;
+            height: 720px;
+            overflow: hidden;
+            border-radius: 24px;
+            background: #ddd;
+            flex-shrink: 0;
+            box-shadow: 0 0 70px rgba(37, 99, 235, 0.22);
+        }
+
+        .vertical-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .vertical-text {
+            flex: 1;
+        }
+
+        .vertical-text h3 {
+            font-size: 40px;
+            line-height: 1.25;
+            margin-bottom: 18px;
+        }
+
+        .vertical-text .desc {
+            font-size: 18px;
+            color: #666;
+            line-height: 1.7;
+            margin-bottom: 35px;
+        }
+
+        .text-tab-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .text-tab {
+            width: 100%;
+            padding: 22px 24px;
+            border: 1px solid #dbe2ef;
+            border-radius: 16px;
+            background: #fff;
+            text-align: left;
+            cursor: pointer;
+            transition: .25s;
+        }
+
+        .text-tab strong {
+            display: block;
+            font-size: 20px;
+            margin-bottom: 8px;
+            color: #222;
+        }
+
+        .text-tab span {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #666;
+        }
+
+        .text-tab.active {
+            border-color: #2563eb;
+            background: #eef4ff;
+        }
+
+        .text-tab.active strong {
+            color: #2563eb;
+        }
+
+
+        .wide-demo {
+            margin-bottom: 120px;
+        }
+
+        .wide-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 28px;
+        }
+
+        .wide-tab {
+            min-width: 150px;
+            padding: 14px 24px;
+            border: 1px solid #dbe2ef;
+            border-radius: 20px;
+            background: #fff;
+            color: #444;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: .25s;
+        }
+
+        .wide-tab.active {
+            background: #2563eb;
+            border-color: #2563eb;
+            color: #fff;
+        }
+
+        .wide-videowrap {
+            background: #eef4ff;
+            width: 1200px;
+            height: 570px;
+            display: flex;
+            align-items: center;
+
+        }
+
+        .wide-video {
+            width: 1100px;
+            height: 500px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 24px;
+            background: #ddd;
+        }
+
+        .wide-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+
+        .demo {
             max-width: 1200px;
             margin: 120px auto;
             padding: 0 20px;
@@ -33,12 +200,10 @@
         }
 
         .text {
-
             flex: 1;
         }
 
         .tag {
-
             display: inline-block;
             padding: 8px 14px;
             border-radius: 999px;
@@ -49,14 +214,12 @@
         }
 
         h2 {
-
             font-size: 48px;
             line-height: 1.2;
             margin-bottom: 20px;
         }
 
         .desc {
-
             font-size: 18px;
             color: #666;
             line-height: 1.7;
@@ -64,23 +227,18 @@
         }
 
         .list {
-
             list-style: none;
         }
 
         .list li {
-
             margin-bottom: 18px;
             font-size: 17px;
         }
 
         .btn {
-
             display: inline-block;
             margin-top: 35px;
-
             padding: 15px 30px;
-
             background: #2563eb;
             color: #fff;
             text-decoration: none;
@@ -90,7 +248,6 @@
         }
 
         .btn:hover {
-
             background: #1d4ed8;
         }
 
@@ -108,81 +265,220 @@
             pointer-events: none;
             user-select: none;
 
-            /* 오른쪽 아래를 기준으로 확대 */
+
             transform-origin: right bottom;
 
-            animation: xxzoomDemo 9s ease-in-out infinite;
+
+            animation: zoomDemo 9s ease-in-out infinite;
         }
 
-        @keyframes zoomDemo {
+        @keyframes zoomDemozzz {
 
-            /* 기본 */
             0%,
             10% {
                 transform: scale(1.35) translate(2px, 25px);
             }
 
-            /* 첫 번째 확대 */
             18% {
                 transform: scale(1.65) translate(2px, 25px);
             }
 
-            /* 확대 유지 */
             38% {
                 transform: scale(1.65) translate(2px, 25px);
             }
 
-            /* 첫 번째 축소 */
             45% {
                 transform: scale(1.35) translate(2px, 25px);
             }
 
-            /* 기본 유지 */
             60% {
                 transform: scale(1.35) translate(2px, 25px);
             }
 
-            /* 두 번째 확대 */
             68% {
                 transform: scale(1.65) translate(2px, 25px);
             }
 
-            /* 확대 유지 */
             88% {
                 transform: scale(1.65) translate(2px, 25px);
             }
 
-            /* 마지막 축소 */
             100% {
                 transform: scale(1.35) translate(2px, 25px);
             }
-
         }
 
-        @media(max-width:900px) {
+        /* =========================
+           반응형
+        ========================= */
 
+        @media(max-width: 1200px) {
+            .wide-video {
+                width: 100%;
+            }
+        }
+
+        @media(max-width: 900px) {
             .demo {
-
                 flex-direction: column;
             }
 
             .text {
-
                 text-align: center;
             }
 
+            .vertical-demo {
+                flex-direction: column;
+                gap: 40px;
+            }
+
+            .vertical-video {
+                width: 100%;
+                max-width: 450px;
+                height: 720px;
+            }
+
+            .vertical-text {
+                width: 100%;
+                text-align: center;
+            }
+
+            .text-tab {
+                text-align: left;
+            }
+
+            .wide-tabs {
+                flex-wrap: wrap;
+            }
+
+            .wide-video {
+                width: 100%;
+                height: 420px;
+            }
+
+            .wide-videowrap {
+                width: 100%;
+            }
         }
 
-    </style>
+        @media(max-width: 600px) {
+            .test-wrap {
+                margin-top: 70px;
+            }
 
+            .test-title h2,
+            .vertical-text h3,
+            h2 {
+                font-size: 32px;
+            }
+
+            .vertical-video {
+                height: 620px;
+            }
+
+            .wide-video {
+                height: 280px;
+            }
+
+            .wide-videowrap {
+                width: 100%;
+                height: 340px;
+            }
+
+            .video {
+                width: 100%;
+                height: 300px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
+    <section class="test-wrap">
+
+        <div class="test-title">
+            <h2>강의를 듣는 순간부터 복습까지<br>더 효율적인 학습 경험을 제공합니다</h2>
+
+        </div>
+
+        <div class="vertical-demo">
+
+            <div class="vertical-video">
+                <video id="verticalVideo" autoplay muted loop playsinline>
+                    <source src="http://elearn.cyber.co.kr/prmovie/.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <div class="vertical-text">
+
+                <h3>실시간 질의응답</h3>
+
+                <p class="desc">
+                    강의를 듣다가 이해되지 않는 부분이 생기면 질문해요<br>
+                    AI Tutor가 바로 핵심 개념을 설명하고<br>
+                    학습 흐름이 끊기지 않도록 도와드려요
+                </p>
+
+                <div class="text-tab-list">
+
+                    <button class="text-tab active" type="button" data-video="http://elearn.cyber.co.kr/prmovie/.mp4">
+                        <span>“ 정리할 시간이 없어.. 전체 강의 핵심만 빠르게 요약해 주세요 ”</span>
+                    </button>
+
+                    <button class="text-tab" type="button" data-video="http://elearn.cyber.co.kr/prmovie/.mp4">
+                        <span>“ 지금 강의 핵심 키워드만 이해하기 쉽게 표로 정리해 주세요 ”</span>
+                    </button>
+
+                    <button class="text-tab" type="button" data-video="http://elearn.cyber.co.kr/prmovie/.mp4">
+                        <span>“ 설명이 너무 어려워요,, 초보자도 이해하기 쉽게 다시 설명해 주세요 ”</span>
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="test-wrap wide-demo">
+
+        <div class="wide-tabs">
+            <button class="wide-tab active" type="button" data-video="http://elearn.cyber.co.kr/prmovie/.mp4">
+                학습 요약
+                <p>강의 내용이 많아 정리하기 어려울 때 활용해 보세요
+                    중요한 내용을 빠르게 요약하고 핵심 개념을
+                    한눈에 이해할 수 있도록 도와드려요</p>
+            </button>
+
+            <button class="wide-tab" type="button" data-video="http://elearn.cyber.co.kr/prmovie/.mp4">
+                핵심 키워드 정리
+                <p>강의 내용이 많아 정리하기 어려울 때 활용해 보세요
+                    중요한 내용을 빠르게 요약하고 핵심 개념을
+                    한눈에 이해할 수 있도록 도와드려요</p>
+            </button>
+
+            <button class="wide-tab" type="button" data-video="http://elearn.cyber.co.kr/prmovie/.mp4">
+                사용자 맞춤 설명
+                <p>강의 내용이 많아 정리하기 어려울 때 활용해 보세요
+                    중요한 내용을 빠르게 요약하고 핵심 개념을
+                    한눈에 이해할 수 있도록 도와드려요</p>
+            </button>
+        </div>
+        <div class="wide-videowrap">
+            <div class="wide-video">
+                <video id="wideVideo" autoplay muted loop playsinline>
+                    <source src="http://elearn.cyber.co.kr/prmovie/.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </section>
+
+
     <section class="demo">
 
         <div class="text">
-
             <span class="tag">Tools 1</span>
 
             <h2>
@@ -192,96 +488,190 @@
             <p class="desc">
                 학습 진행 상황을 자동으로 기록하고 관리할 수 있습니다.
             </p>
-
         </div>
 
         <div class="video">
-
             <video autoplay muted loop playsinline>
-
                 <source src="http://elearn.cyber.co.kr/prmovie/tool01_01.mp4" type="video/mp4">
-
+            </video>
         </div>
 
     </section>
 
-        <section class="demo">
+    <section class="demo">
 
         <div class="text">
-
             <span class="tag">Tools 2</span>
 
             <h2>
-                학습출석체크
+                학습퀴즈
             </h2>
 
             <p class="desc">
                 학습 진행 상황을 자동으로 기록하고 관리할 수 있습니다.
             </p>
-
         </div>
 
         <div class="video">
-
             <video autoplay muted loop playsinline>
-
                 <source src="http://elearn.cyber.co.kr/prmovie/tool01_02.mp4" type="video/mp4">
-
+            </video>
         </div>
 
     </section>
 
-        <section class="demo">
+    <section class="demo">
 
         <div class="text">
-
             <span class="tag">Tools 3</span>
 
             <h2>
-                학습출석체크
+                플래시카드
             </h2>
 
             <p class="desc">
                 학습 진행 상황을 자동으로 기록하고 관리할 수 있습니다.
             </p>
-
         </div>
 
         <div class="video">
-
             <video autoplay muted loop playsinline>
-
                 <source src="http://elearn.cyber.co.kr/prmovie/tool01_03.mp4" type="video/mp4">
-
+            </video>
         </div>
 
     </section>
 
-        <section class="demo">
+    <section class="demo">
 
         <div class="text">
-
             <span class="tag">Tools 4</span>
 
             <h2>
-                학습출석체크
+                학습 노트
             </h2>
 
             <p class="desc">
                 학습 진행 상황을 자동으로 기록하고 관리할 수 있습니다.
             </p>
-
         </div>
 
         <div class="video">
-
             <video autoplay muted loop playsinline>
-
                 <source src="http://elearn.cyber.co.kr/prmovie/tool01_04.mp4" type="video/mp4">
-
+            </video>
         </div>
 
     </section>
+
+
+    <script>
+        /*
+            세로형 영역:
+            오른쪽 텍스트 클릭 시 왼쪽 영상 변경
+            + 자동 전환
+        */
+        const verticalVideo = document.getElementById('verticalVideo');
+        const textTabs = document.querySelectorAll('.text-tab');
+
+        let textTabIndex = 0;
+        let textTabTimer = null;
+
+        function changeTextTab(index) {
+            const targetTab = textTabs[index];
+            const videoSrc = targetTab.getAttribute('data-video');
+
+            textTabs.forEach(function (item) {
+                item.classList.remove('active');
+            });
+
+            targetTab.classList.add('active');
+
+            verticalVideo.querySelector('source').setAttribute('src', videoSrc);
+            verticalVideo.load();
+            verticalVideo.play();
+
+            textTabIndex = index;
+        }
+
+        function startTextTabAuto() {
+            textTabTimer = setInterval(function () {
+                let nextIndex = textTabIndex + 1;
+
+                if (nextIndex >= textTabs.length) {
+                    nextIndex = 0;
+                }
+
+                changeTextTab(nextIndex);
+            }, 7000);
+        }
+
+        textTabs.forEach(function (tab, index) {
+            tab.addEventListener('click', function () {
+                clearInterval(textTabTimer);
+
+                changeTextTab(index);
+
+                startTextTabAuto();
+            });
+        });
+
+        startTextTabAuto();
+
+
+        /*
+            가로형 영역:
+            탭 클릭 시 1100 x 500 영상 변경
+            + 자동 전환
+        */
+        const wideVideo = document.getElementById('wideVideo');
+        const wideTabs = document.querySelectorAll('.wide-tab');
+
+        let wideTabIndex = 0;
+        let wideTabTimer = null;
+
+        function changeWideTab(index) {
+            const targetTab = wideTabs[index];
+            const videoSrc = targetTab.getAttribute('data-video');
+
+            wideTabs.forEach(function (item) {
+                item.classList.remove('active');
+            });
+
+            targetTab.classList.add('active');
+
+            wideVideo.querySelector('source').setAttribute('src', videoSrc);
+            wideVideo.load();
+            wideVideo.play();
+
+            wideTabIndex = index;
+        }
+
+        function startWideTabAuto() {
+            wideTabTimer = setInterval(function () {
+                let nextIndex = wideTabIndex + 1;
+
+                if (nextIndex >= wideTabs.length) {
+                    nextIndex = 0;
+                }
+
+                changeWideTab(nextIndex);
+            }, 3000);
+        }
+
+        wideTabs.forEach(function (tab, index) {
+            tab.addEventListener('click', function () {
+                clearInterval(wideTabTimer);
+
+                changeWideTab(index);
+
+                startWideTabAuto();
+            });
+        });
+
+        startWideTabAuto();
+    </script>
+
 
 </body>
 
