@@ -170,10 +170,28 @@
             align-items: center;
 
         }
+        
+          .wide-demo2       .wide-videowrap {
+            background: #eef4ff;
+            width: 1200px;
+            height: 650px;
+            display: flex;
+            align-items: center;
+
+        }
 
         .wide-video {
             width: 1100px;
             height: 500px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 24px;
+            background: #ddd;
+        }
+
+        .wide-demo2 .wide-video {
+            width: 1100px;
+            height: 620px;
             margin: 0 auto;
             overflow: hidden;
             border-radius: 24px;
@@ -439,6 +457,7 @@
             </div>
 
         </div>
+        
 
     </section>
 
@@ -475,6 +494,16 @@
         </div>
     </section>
 
+        <section class="test-wrap wide-demo2">
+<p>16:9</p>
+        <div class="wide-videowrap">
+            <div class="wide-video">
+                <video id="wideVideo" autoplay muted loop playsinline>
+                    <source src="http://elearn.cyber.co.kr/prmovie/feature01_01.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </section>
 
     <section class="demo">
 
