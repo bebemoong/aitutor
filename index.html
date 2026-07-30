@@ -157,8 +157,8 @@
         }
 
         .wide-tab.active {
-            background: #2563eb;
-            border-color: #2563eb;
+            background: #779af3;
+            border-color: #779af3;
             color: #fff;
         }
 
@@ -170,8 +170,8 @@
             align-items: center;
 
         }
-        
-          .wide-demo2       .wide-videowrap {
+
+        .wide-demo2 .wide-videowrap {
             background: #eef4ff;
             width: 1200px;
             height: 650px;
@@ -326,9 +326,6 @@
             }
         }
 
-        /* =========================
-           반응형
-        ========================= */
 
         @media(max-width: 1200px) {
             .wide-video {
@@ -408,6 +405,33 @@
                 height: 300px;
             }
         }
+
+.vertical-video,
+.wide-video {
+    transition: opacity .15s ease, transform .15s ease;
+}
+
+.vertical-video.is-changing,
+.wide-video.is-changing {
+    opacity: 0;
+    transform: scale(0.985);
+}
+
+.text-tab,
+.wide-tab {
+    transition:
+        background-color .15s ease,
+        border-color .15s ease,
+        color .15s ease,
+        transform .15s ease,
+        opacity .15s ease;
+}
+
+.text-tab.active,
+.wide-tab.active {
+    transform: translateY(-2px);
+}
+
     </style>
 </head>
 
@@ -423,7 +447,7 @@
         <div class="vertical-demo">
 
             <div class="vertical-video">
-                <video id="verticalVideo" autoplay muted loop playsinline>
+                <video id="verticalVideo" autoplay muted playsinline>
                     <source src="http://elearn.cyber.co.kr/prmovie/aitutor_chat_01.mp4" type="video/mp4">
                 </video>
             </div>
@@ -440,15 +464,18 @@
 
                 <div class="text-tab-list">
 
-                    <button class="text-tab active" type="button" data-video="http://elearn.cyber.co.kr/prmovie/aitutor_chat_01.mp4">
+                    <button class="text-tab active" type="button"
+                        data-video="http://elearn.cyber.co.kr/prmovie/aitutor_chat_01.mp4">
                         <span>“ 정리할 시간이 없어.. 전체 강의 핵심만 빠르게 요약해 주세요 ”</span>
                     </button>
 
-                    <button class="text-tab" type="button" data-video="http://elearn.cyber.co.kr/prmovie/aitutor_chat_02.mp4">
+                    <button class="text-tab" type="button"
+                        data-video="http://elearn.cyber.co.kr/prmovie/aitutor_chat_02.mp4">
                         <span>“ 지금 강의 핵심 키워드만 이해하기 쉽게 표로 정리해 주세요 ”</span>
                     </button>
 
-                    <button class="text-tab" type="button" data-video="http://elearn.cyber.co.kr/prmovie/aitutor_chat_03.mp4">
+                    <button class="text-tab" type="button"
+                        data-video="http://elearn.cyber.co.kr/prmovie/aitutor_chat_03.mp4">
                         <span>“ 설명이 너무 어려워요,, 초보자도 이해하기 쉽게 다시 설명해 주세요 ”</span>
                     </button>
 
@@ -457,14 +484,15 @@
             </div>
 
         </div>
-        
+
 
     </section>
 
     <section class="test-wrap wide-demo">
 
         <div class="wide-tabs">
-            <button class="wide-tab active" type="button" data-video="http://elearn.cyber.co.kr/prmovie/aitutor_chat_04.mp4">
+            <button class="wide-tab active" type="button"
+                data-video="http://elearn.cyber.co.kr/prmovie/aitutor_chat_04.mp4">
                 학습 요약
                 <p>강의 내용이 많아 정리하기 어려울 때 활용해 보세요
                     중요한 내용을 빠르게 요약하고 핵심 개념을
@@ -487,15 +515,15 @@
         </div>
         <div class="wide-videowrap">
             <div class="wide-video">
-                <video id="wideVideo" autoplay muted loop playsinline>
-                    <source src="http://elearn.cyber.co.kr/prmovie/aitutor_chat_06.mp4" type="video/mp4">
+                <video id="wideVideo" autoplay muted playsinline>
+                    <source src="http://elearn.cyber.co.kr/prmovie/aitutor_chat_04.mp4" type="video/mp4">
                 </video>
             </div>
         </div>
     </section>
 
-        <section class="test-wrap wide-demo2">
-<p>sample169</p>
+    <section class="test-wrap wide-demo2">
+        <p>sample169</p>
         <div class="wide-videowrap">
             <div class="wide-video">
                 <video id="wideVideo" autoplay muted loop playsinline>
@@ -595,111 +623,155 @@
 
 
     <script>
-        /*
-            세로형 영역:
-            오른쪽 텍스트 클릭 시 왼쪽 영상 변경
-            + 자동 전환
-        */
-        const verticalVideo = document.getElementById('verticalVideo');
-        const textTabs = document.querySelectorAll('.text-tab');
+    /*
+        vertical 영역
+    */
+    const verticalVideo = document.getElementById('verticalVideo');
+    const verticalVideoBox = verticalVideo.closest('.vertical-video');
+    const textTabs = document.querySelectorAll('.text-tab');
 
-        let textTabIndex = 0;
-        let textTabTimer = null;
+    let textTabIndex = 0;
+    let isTextChanging = false;
 
-        function changeTextTab(index) {
-            const targetTab = textTabs[index];
-            const videoSrc = targetTab.getAttribute('data-video');
+    function changeTextTab(index) {
+        if (isTextChanging) {
+            return;
+        }
 
+        isTextChanging = true;
+
+        const targetTab = textTabs[index];
+        const videoSrc = targetTab.getAttribute('data-video');
+        const source = verticalVideo.querySelector('source');
+
+        verticalVideoBox.classList.add('is-changing');
+
+        setTimeout(function () {
             textTabs.forEach(function (item) {
                 item.classList.remove('active');
             });
 
             targetTab.classList.add('active');
 
-            verticalVideo.querySelector('source').setAttribute('src', videoSrc);
+            source.setAttribute('src', videoSrc);
             verticalVideo.load();
-            verticalVideo.play();
 
-            textTabIndex = index;
-        }
+            verticalVideo.oncanplay = function () {
+                verticalVideo.oncanplay = null;
 
-        function startTextTabAuto() {
-            textTabTimer = setInterval(function () {
-                let nextIndex = textTabIndex + 1;
+                const playPromise = verticalVideo.play();
 
-                if (nextIndex >= textTabs.length) {
-                    nextIndex = 0;
+                if (playPromise !== undefined) {
+                    playPromise.catch(function (error) {
+                        console.log('vertical video autoplay failed:', error);
+                    });
                 }
 
-               // changeTextTab(nextIndex);
-            }, 7000);
+                verticalVideoBox.classList.remove('is-changing');
+                textTabIndex = index;
+                isTextChanging = false;
+            };
+        }, 350);
+    }
+
+    function playNextTextTab() {
+        let nextIndex = textTabIndex + 1;
+
+        if (nextIndex >= textTabs.length) {
+            nextIndex = 0;
         }
 
-        textTabs.forEach(function (tab, index) {
-            tab.addEventListener('click', function () {
-                clearInterval(textTabTimer);
+        changeTextTab(nextIndex);
+    }
 
-                changeTextTab(index);
-
-                startTextTabAuto();
-            });
+    textTabs.forEach(function (tab, index) {
+        tab.addEventListener('click', function () {
+            changeTextTab(index);
         });
+    });
 
-        startTextTabAuto();
+    verticalVideo.addEventListener('ended', function () {
+        playNextTextTab();
+    });
+
+    changeTextTab(0);
 
 
-        /*
-            가로형 영역:
-            탭 클릭 시 1100 x 500 영상 변경
-            + 자동 전환
-        */
-        const wideVideo = document.getElementById('wideVideo');
-        const wideTabs = document.querySelectorAll('.wide-tab');
+    /*
+        wide 영역
+    */
+    const wideVideo = document.getElementById('wideVideo');
+    const wideVideoBox = wideVideo.closest('.wide-video');
+    const wideTabs = document.querySelectorAll('.wide-tab');
 
-        let wideTabIndex = 0;
-        let wideTabTimer = null;
+    let wideTabIndex = 0;
+    let isWideChanging = false;
 
-        function changeWideTab(index) {
-            const targetTab = wideTabs[index];
-            const videoSrc = targetTab.getAttribute('data-video');
+    function changeWideTab(index) {
+        if (isWideChanging) {
+            return;
+        }
 
+        isWideChanging = true;
+
+        const targetTab = wideTabs[index];
+        const videoSrc = targetTab.getAttribute('data-video');
+        const source = wideVideo.querySelector('source');
+
+        wideVideoBox.classList.add('is-changing');
+
+        setTimeout(function () {
             wideTabs.forEach(function (item) {
                 item.classList.remove('active');
             });
 
             targetTab.classList.add('active');
 
-            wideVideo.querySelector('source').setAttribute('src', videoSrc);
+            source.setAttribute('src', videoSrc);
             wideVideo.load();
-            wideVideo.play();
 
-            wideTabIndex = index;
-        }
+            wideVideo.oncanplay = function () {
+                wideVideo.oncanplay = null;
 
-        function startWideTabAuto() {
-            wideTabTimer = setInterval(function () {
-                let nextIndex = wideTabIndex + 1;
+                const playPromise = wideVideo.play();
 
-                if (nextIndex >= wideTabs.length) {
-                    nextIndex = 0;
+                if (playPromise !== undefined) {
+                    playPromise.catch(function (error) {
+                        console.log('wide video autoplay failed:', error);
+                    });
                 }
 
-               // changeWideTab(nextIndex);
-            }, 10000);
+                wideVideoBox.classList.remove('is-changing');
+                wideTabIndex = index;
+                isWideChanging = false;
+            };
+        }, 150);
+    }
+
+    function playNextWideTab() {
+        let nextIndex = wideTabIndex + 1;
+
+        if (nextIndex >= wideTabs.length) {
+            nextIndex = 0;
         }
 
-        wideTabs.forEach(function (tab, index) {
-            tab.addEventListener('click', function () {
-                clearInterval(wideTabTimer);
+        changeWideTab(nextIndex);
+    }
 
-                changeWideTab(index);
-
-                startWideTabAuto();
-            });
+    wideTabs.forEach(function (tab, index) {
+        tab.addEventListener('click', function () {
+            changeWideTab(index);
         });
+    });
 
-        startWideTabAuto();
-    </script>
+    wideVideo.addEventListener('ended', function () {
+        playNextWideTab();
+    });
+
+    changeWideTab(0);
+</script>
+
+
 
 
 </body>
