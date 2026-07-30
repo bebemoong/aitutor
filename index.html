@@ -73,6 +73,8 @@
             height: 100%;
             object-fit: cover;
             display: block;
+            transform: scale(1.07);
+            transform-origin: center;
         }
 
         .vertical-text {
@@ -406,32 +408,31 @@
             }
         }
 
-.vertical-video,
-.wide-video {
-    transition: opacity .15s ease, transform .15s ease;
-}
+        .vertical-video,
+        .wide-video {
+            transition: opacity .15s ease, transform .15s ease;
+        }
 
-.vertical-video.is-changing,
-.wide-video.is-changing {
-    opacity: 0;
-    transform: scale(0.985);
-}
+        .vertical-video.is-changing,
+        .wide-video.is-changing {
+            opacity: 0;
+            transform: scale(0.985);
+        }
 
-.text-tab,
-.wide-tab {
-    transition:
-        background-color .15s ease,
-        border-color .15s ease,
-        color .15s ease,
-        transform .15s ease,
-        opacity .15s ease;
-}
+        .text-tab,
+        .wide-tab {
+            transition:
+                background-color .15s ease,
+                border-color .15s ease,
+                color .15s ease,
+                transform .15s ease,
+                opacity .15s ease;
+        }
 
-.text-tab.active,
-.wide-tab.active {
-    transform: translateY(-2px);
-}
-
+        .text-tab.active,
+        .wide-tab.active {
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 
@@ -623,153 +624,153 @@
 
 
     <script>
-    /*
-        vertical 영역
-    */
-    const verticalVideo = document.getElementById('verticalVideo');
-    const verticalVideoBox = verticalVideo.closest('.vertical-video');
-    const textTabs = document.querySelectorAll('.text-tab');
+        /*
+            vertical 영역
+        */
+        const verticalVideo = document.getElementById('verticalVideo');
+        const verticalVideoBox = verticalVideo.closest('.vertical-video');
+        const textTabs = document.querySelectorAll('.text-tab');
 
-    let textTabIndex = 0;
-    let isTextChanging = false;
+        let textTabIndex = 0;
+        let isTextChanging = false;
 
-    function changeTextTab(index) {
-        if (isTextChanging) {
-            return;
+        function changeTextTab(index) {
+            if (isTextChanging) {
+                return;
+            }
+
+            isTextChanging = true;
+
+            const targetTab = textTabs[index];
+            const videoSrc = targetTab.getAttribute('data-video');
+            const source = verticalVideo.querySelector('source');
+
+            verticalVideoBox.classList.add('is-changing');
+
+            setTimeout(function () {
+                textTabs.forEach(function (item) {
+                    item.classList.remove('active');
+                });
+
+                targetTab.classList.add('active');
+
+                source.setAttribute('src', videoSrc);
+                verticalVideo.load();
+
+                verticalVideo.oncanplay = function () {
+                    verticalVideo.oncanplay = null;
+
+                    const playPromise = verticalVideo.play();
+
+                    if (playPromise !== undefined) {
+                        playPromise.catch(function (error) {
+                            console.log('vertical video autoplay failed:', error);
+                        });
+                    }
+
+                    verticalVideoBox.classList.remove('is-changing');
+                    textTabIndex = index;
+                    isTextChanging = false;
+                };
+            }, 350);
         }
 
-        isTextChanging = true;
+        function playNextTextTab() {
+            let nextIndex = textTabIndex + 1;
 
-        const targetTab = textTabs[index];
-        const videoSrc = targetTab.getAttribute('data-video');
-        const source = verticalVideo.querySelector('source');
+            if (nextIndex >= textTabs.length) {
+                nextIndex = 0;
+            }
 
-        verticalVideoBox.classList.add('is-changing');
+            changeTextTab(nextIndex);
+        }
 
-        setTimeout(function () {
-            textTabs.forEach(function (item) {
-                item.classList.remove('active');
+        textTabs.forEach(function (tab, index) {
+            tab.addEventListener('click', function () {
+                changeTextTab(index);
             });
-
-            targetTab.classList.add('active');
-
-            source.setAttribute('src', videoSrc);
-            verticalVideo.load();
-
-            verticalVideo.oncanplay = function () {
-                verticalVideo.oncanplay = null;
-
-                const playPromise = verticalVideo.play();
-
-                if (playPromise !== undefined) {
-                    playPromise.catch(function (error) {
-                        console.log('vertical video autoplay failed:', error);
-                    });
-                }
-
-                verticalVideoBox.classList.remove('is-changing');
-                textTabIndex = index;
-                isTextChanging = false;
-            };
-        }, 350);
-    }
-
-    function playNextTextTab() {
-        let nextIndex = textTabIndex + 1;
-
-        if (nextIndex >= textTabs.length) {
-            nextIndex = 0;
-        }
-
-        changeTextTab(nextIndex);
-    }
-
-    textTabs.forEach(function (tab, index) {
-        tab.addEventListener('click', function () {
-            changeTextTab(index);
         });
-    });
 
-    verticalVideo.addEventListener('ended', function () {
-        playNextTextTab();
-    });
+        verticalVideo.addEventListener('ended', function () {
+            playNextTextTab();
+        });
 
-    changeTextTab(0);
+        changeTextTab(0);
 
 
-    /*
-        wide 영역
-    */
-    const wideVideo = document.getElementById('wideVideo');
-    const wideVideoBox = wideVideo.closest('.wide-video');
-    const wideTabs = document.querySelectorAll('.wide-tab');
+        /*
+            wide 영역
+        */
+        const wideVideo = document.getElementById('wideVideo');
+        const wideVideoBox = wideVideo.closest('.wide-video');
+        const wideTabs = document.querySelectorAll('.wide-tab');
 
-    let wideTabIndex = 0;
-    let isWideChanging = false;
+        let wideTabIndex = 0;
+        let isWideChanging = false;
 
-    function changeWideTab(index) {
-        if (isWideChanging) {
-            return;
+        function changeWideTab(index) {
+            if (isWideChanging) {
+                return;
+            }
+
+            isWideChanging = true;
+
+            const targetTab = wideTabs[index];
+            const videoSrc = targetTab.getAttribute('data-video');
+            const source = wideVideo.querySelector('source');
+
+            wideVideoBox.classList.add('is-changing');
+
+            setTimeout(function () {
+                wideTabs.forEach(function (item) {
+                    item.classList.remove('active');
+                });
+
+                targetTab.classList.add('active');
+
+                source.setAttribute('src', videoSrc);
+                wideVideo.load();
+
+                wideVideo.oncanplay = function () {
+                    wideVideo.oncanplay = null;
+
+                    const playPromise = wideVideo.play();
+
+                    if (playPromise !== undefined) {
+                        playPromise.catch(function (error) {
+                            console.log('wide video autoplay failed:', error);
+                        });
+                    }
+
+                    wideVideoBox.classList.remove('is-changing');
+                    wideTabIndex = index;
+                    isWideChanging = false;
+                };
+            }, 150);
         }
 
-        isWideChanging = true;
+        function playNextWideTab() {
+            let nextIndex = wideTabIndex + 1;
 
-        const targetTab = wideTabs[index];
-        const videoSrc = targetTab.getAttribute('data-video');
-        const source = wideVideo.querySelector('source');
+            if (nextIndex >= wideTabs.length) {
+                nextIndex = 0;
+            }
 
-        wideVideoBox.classList.add('is-changing');
+            changeWideTab(nextIndex);
+        }
 
-        setTimeout(function () {
-            wideTabs.forEach(function (item) {
-                item.classList.remove('active');
+        wideTabs.forEach(function (tab, index) {
+            tab.addEventListener('click', function () {
+                changeWideTab(index);
             });
-
-            targetTab.classList.add('active');
-
-            source.setAttribute('src', videoSrc);
-            wideVideo.load();
-
-            wideVideo.oncanplay = function () {
-                wideVideo.oncanplay = null;
-
-                const playPromise = wideVideo.play();
-
-                if (playPromise !== undefined) {
-                    playPromise.catch(function (error) {
-                        console.log('wide video autoplay failed:', error);
-                    });
-                }
-
-                wideVideoBox.classList.remove('is-changing');
-                wideTabIndex = index;
-                isWideChanging = false;
-            };
-        }, 150);
-    }
-
-    function playNextWideTab() {
-        let nextIndex = wideTabIndex + 1;
-
-        if (nextIndex >= wideTabs.length) {
-            nextIndex = 0;
-        }
-
-        changeWideTab(nextIndex);
-    }
-
-    wideTabs.forEach(function (tab, index) {
-        tab.addEventListener('click', function () {
-            changeWideTab(index);
         });
-    });
 
-    wideVideo.addEventListener('ended', function () {
-        playNextWideTab();
-    });
+        wideVideo.addEventListener('ended', function () {
+            playNextWideTab();
+        });
 
-    changeWideTab(0);
-</script>
+        changeWideTab(0);
+    </script>
 
 
 
